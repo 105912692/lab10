@@ -25,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($user) {
         $_SESSION['username'] = $user['username'];
-        header("Location: welcome.php");
+        header("Location: profile.php");
         exit();
     } else {
         echo "Incorrect username or password.";
