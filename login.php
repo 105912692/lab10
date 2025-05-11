@@ -19,7 +19,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = mysqli_real_escape_string($conn, trim($_POST['username']));
     $password = mysqli_real_escape_string($conn, trim($_POST['password']));
 
-    // Simple credential check (not secure for production)
     $query = "SELECT * FROM users WHERE username = '$username' AND password = '$password'";
     $result = mysqli_query($conn, $query);
     $user = mysqli_fetch_assoc($result);
@@ -34,7 +33,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 
-<!-- Simple Login Form -->
 <!DOCTYPE html>
 <html>
 <head>
