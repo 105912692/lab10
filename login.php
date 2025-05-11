@@ -25,6 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($user) {
         $_SESSION['username'] = $user['username'];
+        $_SESSION['password'] = $user['password'];
         header("Location: profile.php");
         exit();
     } else {
