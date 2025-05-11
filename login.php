@@ -1,32 +1,40 @@
 <?php
-    session_start();
-    $host = "localhost";         // because XAMPP runs the server locally
-    $username = "root";          // default username for XAMPP's MySQL
-    $password = "";              // default password is empty in XAMPP
-    $database = "user";  // replace with the actual name of your database
-    $conn = mysqli_connect($host, $username, $password, $database);
+session_start();
 
-    if (!$conn) {
-        die("Connection failed: " . mysqli_connect_error());
-    }
+// Database connection
+$host = "localhost";
+$db_username = "root";
+$db_password = "";
+$database = "user";
 
-    $username = trim($_POST['username' ]);
-    $password = trim($_POST['password' ]);
+$conn = mysqli_connect($host, $db_username, $db_password, $database);
 
-// Simple query to check credentials
-    $query = "SELECT * FROM users WHERE username = '$username' AND password = '$password'"
+if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+}
+
+// Check if form was submitted
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Validate and sanitize inputs
+    $username = mysqli_real_escape_string($conn, trim($_POST['username']));
+    $password = mysqli_real_escape_string($conn, trim($_POST['password']));
+
+    // Simple credential check (not secure for production)
+    $query = "SELECT * FROM users WHERE username = '$username' AND password = '$password'";
     $result = mysqli_query($conn, $query);
     $user = mysqli_fetch_assoc($result);
 
     if ($user) {
-    $_SESSION['username' ] = $user ['username' ];
-    header("Location: welcome.php");
-    exit();
+        $_SESSION['username'] = $user['username'];
+        header("Location: welcome.php");
+        exit();
     } else {
-    echo "Incorrect username or password.";
+        echo "Incorrect username or password.";
     }
+}
 ?>
 
+<!-- Simple Login Form -->
 <!DOCTYPE html>
 <html>
 <head>
