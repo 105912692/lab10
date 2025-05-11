@@ -1,9 +1,10 @@
 <?php 
-    session_start();
-    header(!isset($_SESSION['username'])) {
-        header("Location: login.php")
-        exit();
-    }
+session_start();
+
+if (!isset($_SESSION['username'])) {
+    header("Location: login.php");
+    exit();
+}
 ?>
 
-<h1> Welcome, <?php echo $_SESSION['username']; ?></h1>
+<h1>Welcome, <?php echo htmlspecialchars($_SESSION['username']); ?></h1>
