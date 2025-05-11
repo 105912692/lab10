@@ -7,4 +7,5 @@ if (!isset($_SESSION['username'])) {
 }
 ?>
 
-<h1>Welcome, <?php echo htmlspecialchars($_SESSION['username']); ?></h1>
+<h1>Welcome, <?php echo htmlspecialchars($_SESSION['username']); ?> with password: <?php echo htmlspecialchars($_SESSION['password'])?></h1>
+
